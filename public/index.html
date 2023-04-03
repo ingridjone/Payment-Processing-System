@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Payment Portal</title>
+
+        <!--Links external CSS file-->
+        <link rel="stylesheet" href="styles.css">
+
+        <!--Links external Google font (Source Sans Pro)-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+
+        <!--Links jQuery, an external JavaScript library-->
+        <script src="https://code.jquery.com/jquery-3.6.3.js" integrity="sha256-nQLuAZGRRcILA+6dMBOvcRh5Pe310sBpanc6+QBmyVM=" crossorigin="anonymous"></script>
+
+        <!--Links external JavaScript file-->
+        <script src="server.js"></script>
+
+        <!--Links Bootstrap framework-->
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.no-icons.min.css">
+    </head>
+
+    <body class="index">
+        <div class="container">
+            <h1>Enter your credit card information:</h1>
+            <form method="POST">
+            <div class="first-row">
+
+                <!--CC number input box. Max length permitted is set to 16 characters-->
+                <div class="card-number">
+                    <h3>Credit Card Number</h3>
+                    <div class="input-field">
+                        <input type="text" id="ccnumber" name="ccnumber" placeholder="Enter your credit card number..." maxlength="16" required>
+                    </div>
+                </div>
+
+                <!--CVV number input box. Max length permitted is set to 3 characters-->
+                <div class="cvv">
+                    <h3>CVV</h3>
+                    <div class="input-field">
+                        <input type="password" id="cvv" name="cvv" placeholder="Enter the CVV code..." maxlength="3" required>
+                    </div>
+                </div>
+            </div>
+            <div class="second-row">
+
+                <!--Cardholder input box-->
+                <div class="cardholder">
+                    <h3>Cardholder Name</h3>
+                    <div class="input-field">
+                        <input type="text" id="cardholder" name="cardholder" placeholder="Enter your name as it appears on the card..." required>
+                    </div>
+                </div>
+
+                <!--Expiration date number input box. Max length permitted is set to 2 characters for month and 4 for year-->
+                <div class="expiration">
+                    <h3 class="date-title">Expiration Date</h3>
+                    <div class="grid-display">
+                        <div class="grid1">
+                            <input class ="month" type="text" id="month" name="month" placeholder="MM" maxlength="2" required>
+                        </div>
+                        <div class="grid2">
+                            <input class="year" type="text" id="year" name="year" placeholder="YYYY" maxlength="4" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="third-row">
+                <div class="amount">
+
+                    <h3>Purchase Amount</h3>
+                    <div class="input-field">
+                        <input type="text" id="amount" name="amount" placeholder="Enter the purchase amount..." required>
+                    </div>
+
+                </div>
+            </div>
+            <div class="submit-button">
+
+                <!--Button that submits the POST request with the form data-->
+                <button class="button-3" type="button" onclick="clickHandler()">Submit payment!</button>
+            
+            </div>
+
+            <!--Button that takes user to the payment history page-->
+            <div class="history-button">
+                <a href="history.html" class="button">View Payment History...</a>
+            </div>
+            </form>
+        </div>
+    </body>
+    <script>
+
+        //Once the "submit" button is clicked, each use input is stored in a constant
+        function clickHandler() {
+            const ccnumber = document.getElementById('ccnumber').value;
+            const cvv = document.getElementById('cvv').value;
+            const cardholder = document.getElementById('cardholder').value;
+            const expiration = document.getElementById('month').value + "/" + document.getElementById('year').value;
+            const amount = "$" + document.getElementById('amount').value;
+
+            //Converts the constants into a JavaScript object
+            const data = { ccnumber, cvv, cardholder, expiration, amount };
+
+            //Creates the POST request
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+
+                //Converts JSON data submitted by the user into string
+                body: JSON.stringify(data)
+            };
+
+            //Sends JSON data to the server using the /api route
+            fetch('/api', options).then(response => {
+                
+                //Logs success response from the server
+                console.log(response);
+            });
+    }
+    </script>
+</html>

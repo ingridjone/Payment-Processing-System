@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Payment History</title>
+
+        <!--Links external CSS file-->
+        <link rel="stylesheet" href="styles.css">
+
+        <!--Links external Google font (Source Sans Pro)-->
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@600&display=swap" rel="stylesheet">
+
+        <!--Links external JavaScript file-->
+        <script src="/server.js"></script>
+
+    </head>
+    <body class="history">
+
+        <div class="history-title">
+            <h1>Payment History:</h1>
+        </div>
+        <div class="list">
+            <script>
+                //Function to query the data stored in the database
+                getData();
+
+                async function getData() {
+                    const response = await fetch('/api');
+                    const data = await response.json();
+
+                    //For loop that cycles through the data
+                    for (item of data) {
+                        const root = document.createElement('div');
+                        const cardholder = document.createElement('div');
+                        const amount = document.createElement('div');
+                        const date = document.createElement('div');
+
+                        //Displays each constant to the client
+                        cardholder.textContent = `Cardholder: ${item.cardholder}`;
+                        amount.textContent = `Purchase Amount: ${item.amount}`;
+                        const dateString = new Date(item.timestamp).toLocaleDateString();
+                        date.textContent = dateString;
+
+                        root.append(cardholder, amount, date);
+                        document.body.append(root);
+                    }
+                }
+            </script>
+        </div>
+    </body>
+</html>
