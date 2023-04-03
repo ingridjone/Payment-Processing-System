@@ -1,0 +1,17 @@
+{
+  "name": "ccform",
+  "version": "1.0.0",
+  "description": "Payment Processing System",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Ingrid Jone",
+  "license": "MIT",
+  "dependencies": {
+    "crypto-js": "^4.1.1",
+    "express": "^4.18.2",
+    "nedb": "^1.8.0"
+  }
+}
