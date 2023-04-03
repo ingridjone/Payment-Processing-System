@@ -3,6 +3,8 @@ Project created for the MS in IT: Software Design and Development at the Univers
 
 The Payment Processing System allows the user to enter their credit card information, and send it as a JSON string to the processing server. The server encrypts the data and stores it into a MongoDB-based API database. The user can also view the payment history webpage, which displays the decrypted data stored in the database in chronological order The technologies used are: HTML, CSS, Bootstrap, JavaScript, Node.js, Express, and NeDB.
 
+The server.js acts as the processing server, and holds all the JavaScript code that handles the GET and POST requests, as well as the commands to connect with the database.
+
 To be able to run the code, these steps must be followed:
 1) Install an IDE such as Visual Studio Code, that allows you to write commands from a built-in terminal.
 2) Install Node.js (https://nodejs.org/en/) to be able to run the server.
